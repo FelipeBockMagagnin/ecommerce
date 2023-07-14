@@ -1,11 +1,12 @@
 import Link from "next/link";
-import { useSelector, useDispatch } from 'react-redux';
 import CartModal from './CartModal'
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { CartContext } from "@/context/cartContext";
 
 export default function NavBar() {
     const [showModal, setShowModal] = useState(false);
-    const cart = useSelector((state) => state.cart);
+
+    const {items, addToCart, removeFromCart} = useContext(CartContext)
 
     return (
         <div className="placeholder-nav" style={{color: 'white'}}>
@@ -15,7 +16,7 @@ export default function NavBar() {
             <Link href="#about">About</Link>
 
             <button onClick={() => setShowModal(!showModal)}>
-                Cart With {cart.length} items
+                Cart With {items.length} items
             </button>
 
             <CartModal showModal={showModal} setShowModal={setShowModal} />

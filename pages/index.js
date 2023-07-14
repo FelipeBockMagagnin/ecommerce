@@ -1,11 +1,10 @@
 import axios from "axios"
-import { useEffect, useState } from "react"
-import { useDispatch } from 'react-redux';
-import { addToCart } from '../redux/cart.slice';
+import { useContext, useEffect, useState } from "react"
+import { CartContext } from "../context/cartContext"
 
 export default function Page() {
     const [products, setProducts] = useState([])
-    const dispatch = useDispatch();
+    const {items, addToCart, removeFromCart} = useContext(CartContext)
 
     useEffect(() => {
         axios.get('https://dummyjson.com/products').then(data => {
@@ -15,6 +14,9 @@ export default function Page() {
 
     return (
         <>
+        <div>
+            {items?.length}
+        </div>
             <div className="product-card-container">
                 {products.map((product, index) => {
                     return (
@@ -32,7 +34,7 @@ export default function Page() {
                             <br/>
                             Estoque: {product.stock}
                             <br/>
-                            <button onClick={() => dispatch(addToCart(product))}>Comprar</button>
+                            <button onClick={() => addToCart(product)}>Comprar</button>
                         </div>
                     )
                 })}

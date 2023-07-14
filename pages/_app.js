@@ -3,15 +3,15 @@ import '../styles/globals.css'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 config.autoAddCss = false
-import { Provider } from 'react-redux';       // Importing Provider
-import store from '../redux/store';           // Importing redux store
+import { CartProvider } from "../context/cartContext";
 
 export default function MyApp({ Component, pageProps }) {
   return (
-    <Provider store={store}>
+    <CartProvider>
       <Layout>
         <Component {...pageProps} />
       </Layout>
-    </Provider>
+    </CartProvider>
+
   )
 }

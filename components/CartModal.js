@@ -1,11 +1,11 @@
-import { useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux';
+import { CartContext } from "@/context/cartContext";
+import { useContext, useEffect } from "react";
 
 export default function CartModal(props) {
     const { showModal, setShowModal } = props;
-    const cart = useSelector((state) => state.cart);
 
-    console.log('cart', cart)
+    const {items, addToCart, removeFromCart} = useContext(CartContext)
+
     useEffect(() => {
         // call click outside
     }, []);
@@ -36,12 +36,15 @@ export default function CartModal(props) {
                 </div>
 
                 <div className="modal-body">
-                    {cart.map((product, index) => {
+                    {items.map((product, index) => {
                         console.log(product)
                         return (
-                            <div className="cart-product" key={index}>{product.title} <br/></div>
+                            <div className="cart-product" key={index}>
+                                {product.title}
+                                <br/>
+                                <button onClick={() => removeFromCart(product.id)}>Remove</button>
+                            </div>
                         )
-
                     })}
                 </div>
             </div>
