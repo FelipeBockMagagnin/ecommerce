@@ -23,7 +23,27 @@ a {
   text-decoration: none;
 }
 
+/* PRODUCTS */
+.product-card-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
 
+.product-card {
+  padding: 10px;
+  margin: 10px;
+  width: 15%;
+  height: 300px;
+  border: 1px solid black;
+}
+
+.product-thumbnail{
+  width: 100%;
+  height: 150px;
+}
 
 /* NAVBAR */
 .placeholder-nav {
