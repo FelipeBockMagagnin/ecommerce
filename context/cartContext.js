@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext, useEffect, useReducer } from "react";
 
 export const CartContext = createContext({
     items: [],
@@ -31,6 +31,20 @@ export const CartProvider = ({ children }) => {
         items: [],
     });
 
+    useEffect(() => {
+        // hydrate on mount
+        const items = localStorage.getItem("cartItems");
+        if (items) {
+            console.log('found stored cart', items);
+            dispatch({
+                type: "ADD",
+                payload: {
+                    items: JSON.parse(items),
+                },
+            });
+        }
+    }, []);
+
     const addToCart = (product) => {
         const updatedCart = [...state.items, product];
 
@@ -40,6 +54,8 @@ export const CartProvider = ({ children }) => {
                 items: updatedCart,
             },
         });
+
+        setSession(updatedCart)
     };
 
     const removeFromCart = (id) => {
@@ -53,7 +69,13 @@ export const CartProvider = ({ children }) => {
                 items: updatedCart,
             },
         });
+
+        setSession(updatedCart)
     };
+
+    const setSession = (updatedCart) => {
+        localStorage.setItem("cartItems", JSON.stringify(updatedCart));
+    }
 
     const value = {
         items: state.items,
